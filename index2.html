@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./cs/index2.css">
+</head>
+<body>
+       
+<div class="header">
+    <div class="wrap">
+        <h1 class="header-logo"></h1>
+        <ul class="header-menu">
+            <li class="header-menu-homepage">
+            <a href="">主页</a></li>
+            <li class="header-menu-mobilebank">
+            <a href="">手机银行</a></li>
+            <li class="header-menu-wechatbank"><a href="">微信银行</a>   </li>
+            <li class="header-menu-service">
+            <a href="" target="_blank" onclick="javascript:goCustomerOnline();return false;">在线客服</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main">
+    <div class="wrap">
+        <div class="main-banner"><a href="" target="_blank"><img alt="" src="https://images.cib.com.cn/persbank/pc/slide/20170519.jpg"></a></div>
+        <div class="main-login">
+            <h2>个人网银登录</h2>
+            <div class="login-content">
+                
+                <form id="loginForm" name="loginForm" action="" method="post">
+                    <input type="hidden" name="type" value="0">
+                    <ul class="login-type fn-clearfix">
+                        <li>
+                            <label class="login-type-label active" for="logintype3">手机号</label>
+                            <input type="radio" name="logintype" id="logintype3" value="3" checked="">
+                        </li>
+                        <li>
+                            <label class="login-type-label" for="logintype1">卡号</label>
+                            <input type="radio" name="logintype" id="logintype1" value="1">
+                        </li>
+                        <li>
+                            <label class="login-type-label" for="logintype2">登录名</label>
+                            <input type="radio" name="logintype" id="logintype2" value="2">
+                        </li>
+                        <li class="login-type-lastli">
+                            <label class="login-type-label" for="logintype0">客户号</label>
+                            <input type="radio" name="logintype" id="logintype0" value="0">
+                        </li>
+                    </ul>
+                    <div class="login-form-wrap">
+                        <div class="login-form">
+                            <div class="ui-form-item" id="loginName_div">
+                                <label class="ui-label" id="loginName_label">手机号</label>
+                                <input type="text" size="18" maxlength="20" tabindex="1" class="ui-input ent_enabled ent2tab" id="loginNameTemp" value="" autocomplete="off" placeholder="请输入手机号">
+                                <input type="hidden" id="loginName" name="j_username" value="">
+                            </div>
+                            <div id="sms_div">
+                                <div class="ui-form-item form-item-captcha" id="captcha0">
+                                        <label class="ui-label" for="addInYard">验证码</label>
+                                        <input type="text" size="4" maxlength="4" tabindex="3" class="ui-input ent_enabled addinyard" id="mobilecaptchafield" name="mobilecaptchafield">
+                                        <span class="verify-status"></span>
+                                        <img src="" title="附加码" class="yardimg">
+                                        <a class="yardimg-anchor">看不清，换一张</a>
+                                    </div>
+                                <div class="ui-form-item form-item-verify-code" style="">
+                                       <label class="ui-label">认证码</label>
+                                       <input type="text" id="mobLogin_sendsms" class="ui-input validate[custom[onlyNumber],required,codeLength[6]]" value="" maxlength="6" name="hsendSms" onkeyup="verySMS();">
+                                       <span id="sms-lefttime" class="sms-left-time" style="display: none"></span>
+                                       <a id="btnSendSms" href="#" class="sms-send-btn" onclick="checkPhoneNo();" ondblclick="checkPhoneNo();">点击获取短信认证码</a>
+                                       <div id="sms-tip" class="ui-form-explain">
+                                       <span id="sms-tip-lefttime"></span>
+                                       <span id="sms-tip-seqence">
+                                       </span></div></div>  </div>
+                     
+                            <div id="loginpwd_div" style="display: none">
+                                <div class="ui-form-item form-item-password">
+                                    <label class="ui-label">登录密码</label>
+                                    
+                                    <div class="hs_kb_wrap" style="border: 1px solid rgb(225, 225, 225); position: static;">
+                                    <input type="password" size="10" maxlength="16" tabindex="2" onpaste="return false;" autocomplete="off" oncontextmenu="return false;" id="loginPwd" class="ui-input ent_enabled keyboard" value="" placeholder="请输入网银登录密码" style="float: left; border: 0px none; margin: 0px; width: 112px;">
+                                    <div class="hs_kb_btn" style="height: 38px;"></div></div>
+                                    <a href="" class="password-forgot" tabindex="10">忘记密码</a>
+                                    <input type="hidden" name="j_password" id="hLoginPwd">
+                                    <input type="hidden" name="pb_ma" id="hma">
+                                </div>
+                                <div class="ui-form-item form-item-captcha" id="captcha1" style="display:none;">
+                                    <label class="ui-label" for="addInYard">验证码</label>
+                                    <input type="text" size="4" maxlength="4" tabindex="3" class="ui-input ent_enabled addinyard" id="addInYard" name="captchafield">
+                                    <span class="verify-status"></span>
+                                    <img title="附加码" class="yardimg">
+                                    <a class="yardimg-anchor">看不清，换一张</a>
+                                </div>
+                                <div class="ui-form-item form-item-checkbox" id="controlUseDiv" style="display:none;">
+                                    <div class="ui-checkbox">
+                                        <input type="checkbox" id="useControlChkBox" onclick="changeControlUse();">
+                                        <label for="useControlChkBox">使用密码控件登录</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="login_btn" style="display: none">
+                                <input class="ui-button-lblue ui-cib-button" id="loginSubmitBtn" type="submit" tabindex="4" onclick="return doLogin();" value="登　录" role="button" aria-disabled="false">
+                            </div>
+                            <div id="login_next_btn" style="display: none">
+                                <input id="loginNextBtn" type="button" class="ui-button-lblue ui-cib-button" tabindex="4" onclick="return queryAccount();" value="下一步" role="button" aria-disabled="false">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form id="queryAccountForm" name="queryAccountForm" action="" method="post" class="form">
+                	<input type="hidden" name="struts.token.name" value="token">
+                    <input type="hidden" name="token" value="">
+                    <input type="hidden" name="loginName" value="" id="queryAccountForm_loginName">
+                    <input type="hidden" name="loginType" value="1" id="queryAccountForm_loginType">
+               </form>
+                <form id="verySMSForm" name="verySMSForm" action="" method="post" class="form">
+                    <input type="hidden" name="hsendSms" value="" id="hiddenHsendSms">
+                    <input type="hidden" name="loginName" value="" id="hiddenLoginName">
+                    <input type="hidden" name="loginType" value="3" id="verySMSForm_loginType">
+                    <input type="hidden" name="captchafield" value="" id="hiddenCaptchafield">               
+                 </form>
+                <form id="changeControlUseForm" name="changeControlUseForm" action="ZZyLKyLSLhNCPJYQCdp2hBX6G2BRVLn17r6H22rLwD1xLj65!-670931995" method="post" class="form">
+                    <input type="hidden" name="loginType" value="3" id="hiddenLoginType">
+                    <input type="hidden" name="useControl" value="false" id="hiddenUseControl">
+                
+                </form>
+                <p class="remind"><span>安全提示：</span>请不要在网吧等公共场所使用个人网上银行。每次使用后，请点击 “安全退出” 结束使用，网盾用户请拔出网盾并妥善保管。</p>
+            </div>
+        </div>
+    </div>
+</div>
+           <div class="footer">
+            <div class="wrap">
+             <div class="footer-nav">
+            <dl class="footer-nav-credit">
+                <dt>信用卡</dt>
+				<dd><a href="" target="_blank">信用卡申请</a></dd>
+                <dd><a href="">申请进度查询</a></dd>
+                <dd><a href="">信用卡激活</a></dd>
+                <dd><a href="">查询密码设置</a></dd>
+                <dd><a href="">信用卡挂失</a></dd>
+                
+                <dd><a href="">卡片邮寄情况</a></dd>
+            </dl>
+            <dl class="footer-nav-business">
+                <dt>兴业e卡</dt>
+                <dd><a href="" target="_blank">e卡申请</a></dd>
+                <dd><a href="">e卡申请进度查询</a></dd>
+                <dd><a href="">e卡卡号查询</a></dd>
+            </dl>
+            <dl class="footer-nav-help">
+                <dt>帮助</dt>
+                <dd><a href="" target="_blank">申请指南</a></dd>
+                <dd><a href="" target="_blank">功能介绍</a></dd>
+                <dd><a href="" target="_blank">资费标准</a></dd>
+                <dd><a href="" target="_blank">常见问题</a></dd>
+                <dd><a href="" target="_blank">功能演示</a></dd>
+            </dl>
+            <dl class="footer-nav-other">
+                <dt>其他</dt>
+                <dd><a href="" target="_blank">安全说明</a></dd>
+                <dd><a href="" target="_blank">网银病毒专杀</a></dd>
+                <dd><a href="" target="_blank">下载中心</a></dd>
+				<dd><a href="" target="_blank">网盾管理工具</a></dd>
+                <dd><a href="" target="_blank">网银助手</a></dd>
+            </dl>
+        </div>
+        <p>兴业银行 版权所有　　福建省福州市湖东路154号 350003　　客户服务热线：95561</p>
+    </div>
+</div>
+<div id="downloadDiv" style="display:none;">
+    <p>&nbsp;&nbsp;请点击“立即安装控件”，按提示进行安装，安装完成后请重启浏览器。</p>
+    <p>&nbsp;&nbsp;</p>
+    <p>&nbsp;&nbsp;（<a href="" target="_blank">控件安装不上怎么办？</a>）</p>
+</div>
+<form id="changeLoginTypeForm" name="changeLoginTypeForm" action="2" method="post" class="form">
+    <input type="hidden" name="loginType" value="" id="hidLoginType">
+
+</form>
+     
+
+</heta>
+</body>
+</html>
